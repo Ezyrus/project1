@@ -1,38 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home</title>
-
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <!-- sweetalert -->
-        <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
-        <!-- bootstrap5 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    </head>
-
-    
-    <body>
-        <main class="container mt-4">
+<body>
+    <main class="container mt-4">
+        <div class="row">
             <h3 class="w-100 text-center">Home Portal</h3>
-            <p>Welcome admin: <?php echo $fullname ?></p>
-            <ul>
-                <li>Username: <?php echo $username; ?></li>
-                <li>Access Type: <?php echo $access_type; ?></li>
-                <li> <a href="<?php echo site_url('logout'); ?>" class="text-decoration-none text-danger">Logout
-                        Account</a>
-                    </div>
-                </li>
-            </ul>
-        </main>
-    </body>
+            <h5 class="w-100 text-center text-secondary"><span
+                    id="real_time"><?php echo Main::getCurrentDateTime(); ?></span></h5>
+        </div>
+
+        <p>Welcome admin: <?php echo $fullname ?></p>
+        <ul>
+            <li>Username: <?php echo $username; ?></li>
+            <li>ID: <?php echo $id; ?></li>
+            <li>Access Type: <?php echo $access_type; ?></li>
+            <li> <a href="<?php echo site_url('logout'); ?>" class="text-decoration-none text-danger">Logout
+                    Account</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4>Your Daily Time Record</h4>
+            </div>
+
+            <div class="card-body">
+                <button type="button" class="btn btn-success" id="timeIn_btn">Time In</button>
+                <button type="button" class="btn btn-danger" id="timeOut_btn">Time Out</button>
+                <table class="table table-bordered table-hover mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th class="text-nowrap">Admin ID</th>
+                            <th class="text-nowrap">Time In</th>
+                            <th class="text-nowrap">Time Out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($dtr) {
+                            foreach ($dtr as $individualDtr):
+                                ?>
+                                <tr>
+                                    <td><?php echo $individualDtr["id"]; ?></td>
+                                    <td><?php echo $individualDtr["admin_id"]; ?></td>
+                                    <td><?php echo Main::formatDateTime($individualDtr["time_in"]); ?></td>
+                                    <td><?php echo Main::formatDateTime($individualDtr["time_out"]); ?></td>
+                                </tr>
+                                <?php
+                            endforeach;
+                        } else {
+                            echo "<tr> <td colspan='5' class='text-center text-danger'>No Recorded DTR.</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            var timeElement = $('#real_time');
+
+            function updateTime() {
+                var currentDate = new Date();
+                timeElement.text(currentDate);
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
+        })
+
+        var realTime = $("#real_time").text();
+        var timeInBtn = $("#timeIn_btn");
+        var timeOutBtn = $("#timeOut_btn");
+        timeInBtn.on("click", function () {
+            $.ajax({
+                url: "<?php echo site_url('dtr/timeIn'); ?>",
+                type: "POST",
+                data: {
+                    time: realTime,
+                    admin_id: <?php echo $id; ?>
+                },
+                dataType: 'json',
+                success: function (responseData) {
+                    if (responseData.status) {
+                        swal({
+                            text: responseData.message,
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            text: responseData.message,
+                            icon: "error",
+                            button: "Ok",
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    swal({
+                        text: "Error occurred, please contact developers immediately.",
+                        icon: "error",
+                        button: "Ok",
+                    });
+                }
+            })
+        });
+
+        timeOutBtn.on("click", function () {
+            $.ajax({
+                url: "<?php echo site_url('dtr/timeOut'); ?>",
+                type: "POST",
+                data: {
+                    admin_id: <?php echo $id; ?>
+                },
+                dataType: 'json',
+                success: function (responseData) {
+                    if (responseData.status) {
+                        swal({
+                            text: responseData.message,
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            text: responseData.message,
+                            icon: "error",
+                            button: "Ok",
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    swal({
+                        text: "Error occurred, please contact developers immediately.",
+                        icon: "error",
+                        button: "Ok",
+                    });
+                }
+            })
+        });
+    </script>
+</body>
 
 </html>

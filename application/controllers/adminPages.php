@@ -1,12 +1,13 @@
 <?php
 
-class adminPages extends CI_Controller
+class AdminPages extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model("adminPagesModel");
+        $this->load->model("dtrModel");
     }
 
     public function goToLogIn()
@@ -25,8 +26,10 @@ class adminPages extends CI_Controller
         if (empty($data)) {
             return $this->goToLogIn();   
         }
-        $data["admins"
-        ] = $this->adminPagesModel->populateAdmins();
+        $data["dtr"
+        ] = $this->dtrModel->populateDtr($data["id"]);
+        $data["title"] = "Home";
+        $this->load->view("inc/headers", $data);
         $this->load->view("home", $data);
     }
 
@@ -36,9 +39,10 @@ class adminPages extends CI_Controller
         if (empty($data)) {
             return $this->goToLogIn();   
         }
-
         $data["admins"
         ] = $this->adminPagesModel->populateAdmins();
+        $data["title"] = "Administrators";
+        $this->load->view("inc/headers", $data);
         $this->load->view("administrators", $data);
     }
 
@@ -72,8 +76,6 @@ class adminPages extends CI_Controller
     }
 
     public function logout() {
-        // unset sessions
-        // redirect to login page 
         $this->session->sess_destroy();
         $this->load->view("login");
     }
@@ -81,6 +83,7 @@ class adminPages extends CI_Controller
     // populate read admin form
     public function getAdmin($id) {
         $admin = $this->adminPagesModel->readAdmin($id);
+
         $this->load->view("update", $admin);
     }
 

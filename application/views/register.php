@@ -67,7 +67,8 @@
                             swal({
                                 text: responseData.message,
                                 icon: "success",
-                                button: "Okay"
+                                timer:1000,
+                                button: false
                             }).then(() => {
                                 window.location.href = "<?php echo site_url('adminPages/goToLogIn'); ?>";
                             });

@@ -1,6 +1,6 @@
 <?php
 
-class adminPagesModel extends CI_Model
+class AdminPagesModel extends CI_Model
 {
     public function __construct()
     {
