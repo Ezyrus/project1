@@ -72,6 +72,12 @@ class DtrModel extends CI_Model
         return $row;
     }
 
+    public function populateDtr_dateFilter($admin_id, $dateFrom, $dateTo) {    
+        $this->db->where("admin_id", $admin_id);
+        $this->db->where("time_in between '$dateFrom' AND '$dateTo'");
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get('dtr')->result_array();
+    }
 }
 
 ?>

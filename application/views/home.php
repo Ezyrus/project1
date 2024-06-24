@@ -2,7 +2,7 @@
     <main class="container mt-4">
         <div class="row">
             <h3 class="w-100 text-center">Home Portal</h3>
-            <h4 class="w-100 text-center text-secondary" id="real_time"><?php echo Main::getCurrentDateTime(); ?></h4>
+            <h4 class="w-100 text-center text-secondary" id="real_time"></h4>
         </div>
 
         <p>Welcome admin: <?php echo $fullname ?></p>
@@ -24,6 +24,11 @@
             <div class="card-body">
                 <button type="button" class="btn btn-success" id="timeIn_btn">Time In</button>
                 <button type="button" class="btn btn-danger" id="timeOut_btn">Time Out</button>
+                <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
+                    data-bs-target="#dateFilterModal">Filter Date</button>
+                <button type="button" class="btn btn-primary text-white" id="pdf_btn">PDF</button>
+                <button type="button" class="btn btn-success text-white" id="excel_btn">Excel</button>
+
                 <table class="table table-bordered table-hover mt-3">
                     <thead class="table-dark">
                         <tr>
@@ -55,22 +60,57 @@
             </div>
         </div>
 
+        <!-- Date Filter Modal -->
+        <div class="modal fade" id="dateFilterModal" tabindex="-1" aria-labelledby="dateFilterLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <form id="dateRange_form" action="<?php echo site_url("dtr/dateFilter/") . $id; ?>" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="dateFilterLabel">Table Date Filter</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <label for="dateFrom" class="form-label mb-0">Date From:</label>
+                                    <input type="date" class="form-control" name="dateFrom" id="dateFrom" required>
+                                </div>
+                                <div class="col">
+                                    <label for="dateTo" class="form-label mb-0">Date To:</label>
+                                    <input type="date" class="form-control" name="dateTo" id="dateTo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning"
+                                onclick="window.location.href='<?php echo site_url('adminPages/goToHome'); ?>' ">Reset</button>
+                            <button type="submit" class="btn btn-primary">Take Effect</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script>
         $(document).ready(function () {
             updateDateTime();
             setInterval(updateDateTime, 1000);
+
+            var today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+            $("#dateFrom").attr("max", today);
+            $("#dateTo").attr("max", today);
         })
 
         function updateDateTime() {
             var recentDate = new Date()
             var recentYear = recentDate.getFullYear()
-            var recentMonth = String(recentDate.getMonth())
-            var recentDay =String(recentDate.getDate())
-            var recentHours =String(recentDate.getHours())
-            var recentMinutes =String(recentDate.getMinutes())
-            var recentSeconds =String(recentDate.getSeconds())
+            var recentMonth = String(recentDate.getMonth() + 1)
+            var recentDay = String(recentDate.getDate())
+            var recentHours = String(recentDate.getHours())
+            var recentMinutes = String(recentDate.getMinutes())
+            var recentSeconds = String(recentDate.getSeconds())
 
             var recentDateTime = recentYear + '-' + recentMonth + '-' + recentDay + ' ' + recentHours + ':' + recentMinutes + ':' + recentSeconds
             $("#real_time").text(recentDateTime)
@@ -149,6 +189,7 @@
                 }
             })
         });
+
     </script>
 </body>
 

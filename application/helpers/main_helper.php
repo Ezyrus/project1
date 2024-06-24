@@ -12,7 +12,7 @@ class Main
     public static function formatDateTime($dateTimeString)
     {
         if ($dateTimeString === '0000-00-00 00:00:00') {
-            return "No record to show yet";
+            return "...";
         }
         $dateTime = new DateTime($dateTimeString);
         return $dateTime->format('F j, Y \a\t h:i:s A');

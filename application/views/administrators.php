@@ -1,11 +1,14 @@
 <body>
     <main class="container mt-4">
-        <h3 class="w-100 text-center">Admin Portal</h3>
+    <div class="row">
+            <h3 class="w-100 text-center">Admin Portal</h3>
+            <h4 class="w-100 text-center text-secondary" id="real_time"></h4>
+        </div>
+
         <p>Welcome admin: <?php echo $fullname ?></p>
             <li>Username: <?php echo $username; ?></li>
             <li>ID: <?php echo $id; ?></li>
             <li>Access Type: <?php echo $access_type; ?></li>
-            <li id="real_time">Time: <?php echo Main::formatDateTime(Main::getCurrentDateTime()); ?></li>
             <li> <a href="<?php echo site_url('logout'); ?>" class="text-decoration-none text-danger">Logout
                     Account</a>
                 </div>
@@ -58,8 +61,23 @@
     </main>
 
     <script>
-        var realTime = $("#real_time").text();
-        console.log(realTime);
+        $(document).ready(function () {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        })
+
+        function updateDateTime() {
+            var recentDate = new Date()
+            var recentYear = recentDate.getFullYear()
+            var recentMonth = String(recentDate.getMonth() +1)
+            var recentDay = String(recentDate.getDate())
+            var recentHours = String(recentDate.getHours())
+            var recentMinutes = String(recentDate.getMinutes())
+            var recentSeconds = String(recentDate.getSeconds())
+
+            var recentDateTime = recentYear + '-' + recentMonth + '-' + recentDay + ' ' + recentHours + ':' + recentMinutes + ':' + recentSeconds
+            $("#real_time").text(recentDateTime)
+        }
     </script>
 </body>
 

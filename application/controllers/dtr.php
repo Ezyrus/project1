@@ -30,6 +30,19 @@ class Dtr extends CI_Controller {
         }
     }
 
+    public function dateFilter($admin_id) {
+        $dateFrom = $this->input->post("dateFrom"); 
+        $dateTo = $this->input->post("dateTo");
+        
+        $data = $this->session->userdata("adminLoggedIn");
+        $data["dtr"
+        ] = $this->dtrModel->populateDtr_dateFilter($admin_id, $dateFrom, $dateTo);
+        $data["title"] = "Home";
+        
+        $this->load->view("inc/headers", $data);
+        $this->load->view("home", $data);
+   }
+
 }
 
 ?>
