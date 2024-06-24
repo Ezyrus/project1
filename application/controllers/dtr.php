@@ -1,4 +1,5 @@
 <?php 
+require FCPATH. '/vendor/autoload.php';
 
 class Dtr extends CI_Controller {
      
@@ -41,6 +42,12 @@ class Dtr extends CI_Controller {
         
         $this->load->view("inc/headers", $data);
         $this->load->view("home", $data);
+   }
+
+   public function exportPdf() {
+    $mpdf = new \Mpdf\Mpdf();
+    $mpdf->WriteHTML('<h1>Hello world!</h1>');
+    $mpdf->Output();
    }
 
 }
