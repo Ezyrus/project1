@@ -9,11 +9,9 @@ class Dtr extends CI_Controller {
     }
 
     public function timeIn() {
-        $data = array(
-            "time_in" => $this->input->post("time"),
-            "admin_id" => $this->input->post("admin_id")
-        );
-        $modelResponse = $this->dtrModel->insert_time($data);
+        $admin_id = $this->input->post("admin_id");
+
+        $modelResponse = $this->dtrModel->insert_time($admin_id);        
         if ($modelResponse) {
             echo json_encode(['status' => true, 'message' => "Time In Successful"]);
         } else {
@@ -25,7 +23,6 @@ class Dtr extends CI_Controller {
         $admin_id = $this->input->post("admin_id");
 
         $modelResponse = $this->dtrModel->update_time($admin_id);
-    
         if ($modelResponse) {
             echo json_encode(['status' => true, 'message' => "Time Out Successful"]);
         } else {    

@@ -2,8 +2,7 @@
     <main class="container mt-4">
         <div class="row">
             <h3 class="w-100 text-center">Home Portal</h3>
-            <h5 class="w-100 text-center text-secondary"><span
-                    id="real_time"><?php echo Main::getCurrentDateTime(); ?></span></h5>
+            <h4 class="w-100 text-center text-secondary" id="real_time"><?php echo Main::getCurrentDateTime(); ?></h4>
         </div>
 
         <p>Welcome admin: <?php echo $fullname ?></p>
@@ -60,17 +59,23 @@
 
     <script>
         $(document).ready(function () {
-            var timeElement = $('#real_time');
-
-            function updateTime() {
-                var currentDate = new Date();
-                timeElement.text(currentDate);
-            }
-            updateTime();
-            setInterval(updateTime, 1000);
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
         })
 
-        var realTime = $("#real_time").text();
+        function updateDateTime() {
+            var recentDate = new Date()
+            var recentYear = recentDate.getFullYear()
+            var recentMonth = String(recentDate.getMonth())
+            var recentDay =String(recentDate.getDate())
+            var recentHours =String(recentDate.getHours())
+            var recentMinutes =String(recentDate.getMinutes())
+            var recentSeconds =String(recentDate.getSeconds())
+
+            var recentDateTime = recentYear + '-' + recentMonth + '-' + recentDay + ' ' + recentHours + ':' + recentMinutes + ':' + recentSeconds
+            $("#real_time").text(recentDateTime)
+        }
+
         var timeInBtn = $("#timeIn_btn");
         var timeOutBtn = $("#timeOut_btn");
         timeInBtn.on("click", function () {
@@ -78,7 +83,6 @@
                 url: "<?php echo site_url('dtr/timeIn'); ?>",
                 type: "POST",
                 data: {
-                    time: realTime,
                     admin_id: <?php echo $id; ?>
                 },
                 dataType: 'json',
