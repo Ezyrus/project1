@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-danger" id="timeOut_btn">Time Out</button>
                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                     data-bs-target="#dateFilterModal">Filter Date</button>
-                <button type="button" class="btn btn-primary text-white" id="pdf_btn">PDF</button>
+                <button type="button" class="btn btn-primary text-white" id="pdf_btn" onclick="window.open('<?php echo site_url('dtr/exportPdf/') . $id;?>') ">PDF</button>
                 <button type="button" class="btn btn-success text-white" id="excel_btn">Excel</button>
 
                 <table class="table table-bordered table-hover mt-3">
@@ -118,6 +118,7 @@
 
         var timeInBtn = $("#timeIn_btn");
         var timeOutBtn = $("#timeOut_btn");
+        var excelBtn = $("#excel_btn");
         timeInBtn.on("click", function () {
             $.ajax({
                 url: "<?php echo site_url('dtr/timeIn'); ?>",
@@ -189,6 +190,7 @@
                 }
             })
         });
+
 
     </script>
 </body>

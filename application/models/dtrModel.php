@@ -73,8 +73,15 @@ class DtrModel extends CI_Model
     }
 
     public function populateDtr_dateFilter($admin_id, $dateFrom, $dateTo) {    
+        // The dateFrom & dateTo is a Y-m-d format without a time
+        // While the `time_in` is datetime the input should be formatted as 
+        // the `time_in` expects. 
+        $dateFrom = date('Y-m-d 00:00:00', strtotime($dateFrom));
+        $dateTo = date('Y-m-d 23:59:59', strtotime($dateTo));
+
         $this->db->where("admin_id", $admin_id);
-        $this->db->where("time_in between '$dateFrom' AND '$dateTo'");
+        $this->db->where("time_in >= '$dateFrom'");
+        $this->db->where("time_in <= '$dateTo'");   
         $this->db->order_by('id', 'DESC');
         return $this->db->get('dtr')->result_array();
     }
