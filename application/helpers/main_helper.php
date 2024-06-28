@@ -9,6 +9,11 @@ class Main
         return (new DateTime())->format('Y-m-d H:i:s');
     }
 
+    public static function getCurrentDate()
+    {
+        return (new DateTime())->format('Y-m-d');
+    }
+
     public static function formatDateTime($dateTimeString)
     {
         if ($dateTimeString === '0000-00-00 00:00:00') {

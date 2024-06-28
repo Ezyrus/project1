@@ -16,13 +16,14 @@ class DtrModel extends CI_Model
         return $this->db->get('dtr')->result_array();
     }
 
-    public function insert_time($admin_id)
+    public function insert_time($admin_id, $timeIn_selfiePicture)
     {
         $data = array(
             "admin_id" => $admin_id,
-            "time_in" => Main::getCurrentDateTime()
+            "time_in" => Main::getCurrentDateTime(),
+            "time-in_picture" => $timeIn_selfiePicture
         );
-
+        
         $lastTimeIn = $this->getLast_timeIn($admin_id);
         $currentDate = (new DateTime())->format('Y-m-d');
 

@@ -13,13 +13,19 @@ class Dtr extends CI_Controller
 
     public function timeIn()
     {
+        $timeIn_selfiePicture = $this->input->post('timeIn_selfiePicture', FALSE);
         $admin_id = $this->input->post("admin_id");
 
-        $modelResponse = $this->dtrModel->insert_time($admin_id);
-        if ($modelResponse) {
-            echo json_encode(['status' => true, 'message' => "Time In Successful"]);
+        $modelResponse = $this->dtrModel->insert_time($admin_id, $timeIn_selfiePicture);
+
+        if (empty($timeIn_selfiePicture)) {
+            echo json_encode(['status' => false, 'message' => "Selfie Picture is Required"]);
         } else {
-            echo json_encode(['status' => false, 'message' => "Time In Failed"]);
+            if ($modelResponse) {
+                echo json_encode(['status' => true, 'message' => "Time In Successful"]);
+            } else {
+                echo json_encode(['status' => false, 'message' => "Time In Failed "]);
+            }
         }
     }
 
@@ -54,7 +60,15 @@ class Dtr extends CI_Controller
         $data["adminRow"] = $this->adminPagesModel->readAdmin($admin_id);
         $data["adminDtr"] = $this->dtrModel->populateDtr($admin_id);
         $data["title"] = "Your Daily Time Record";
-        $this->load->view("templates/export_pdf", $data);
+        $this->load->view("templates/export_table-pdf", $data);
+    }
+
+    public function exportExcel($admin_id)
+    {
+        $data["adminRow"] = $this->adminPagesModel->readAdmin($admin_id);
+        $data["adminDtr"] = $this->dtrModel->populateDtr($admin_id);
+        $data["title"] = "Your Daily Time Record";
+        $this->load->view("templates/export_excel", $data);
     }
 
 }
