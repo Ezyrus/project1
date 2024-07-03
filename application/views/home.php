@@ -47,16 +47,16 @@
                     <tbody>
                         <?php
                         if ($dtr) {
-                            foreach ($dtr as $individualDtr):
+                            foreach ($dtr as $dtrData):
                                 ?>
                                 <tr>
-                                    <td><?php echo $individualDtr["id"]; ?></td>
-                                    <td><?php echo $individualDtr["admin_id"]; ?></td>
-                                    <td><?php echo Main::formatDateTime($individualDtr["time_in"]); ?></td>
-                                    <td><img src="<?php echo Main::formatEncodedBase64($individualDtr["time-in_picture"]); ?>"
+                                    <td><?php echo $dtrData["id"]; ?></td>
+                                    <td><?php echo $dtrData["admin_id"]; ?></td>
+                                    <td><?php echo Main::formatDateTime($dtrData["time_in"]); ?></td>
+                                    <td><img src="<?php echo Main::formatEncodedBase64($dtrData["time-in_picture"]); ?>"
                                             alt="Time In Picture" width="100"></td>
-                                    <td><?php echo Main::formatDateTime($individualDtr["time_out"]); ?></td>
-                                    <td><img src="<?php echo Main::formatEncodedBase64($individualDtr["time-out_picture"]); ?>"
+                                    <td><?php echo Main::formatDateTime($dtrData["time_out"]); ?></td>
+                                    <td><img src="<?php echo Main::formatEncodedBase64($dtrData["time-out_picture"]); ?>"
                                     alt="Time Out Picture" width="100"></td>
                                 </tr>
                                 <?php

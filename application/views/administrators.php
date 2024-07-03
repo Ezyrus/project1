@@ -45,7 +45,7 @@
                                     <!-- <td><?php //echo $systemAdmins["password"]; ?></td> -->
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm"
-                                            onclick="window.location.href='<?php echo site_url('index.php/adminPages/getAdmin/' . $systemAdmins['id']); ?>'">Update</button>
+                                            onclick="window.location.href='<?php echo site_url('adminPages/getAdmin/' . $systemAdmins['id']); ?>'">Update</button>
                                     </td>
                                 </tr>
                                 <?php
