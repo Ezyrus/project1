@@ -25,13 +25,13 @@
                 <button type="button" class="btn btn-success" id="timeIn_btn" data-bs-toggle="modal"
                     data-bs-target="#timeInModal">Time In</button>
                 <button type="button" class="btn btn-danger" id="timeOut_btn" data-bs-toggle="modal"
-                data-bs-target="#timeOutModal">Time Out</button>
+                    data-bs-target="#timeOutModal">Time Out</button>
                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                     data-bs-target="#dateFilterModal">Filter Date</button>
                 <button type="button" class="btn btn-primary text-white" id="pdf_btn"
                     onclick="window.open('<?php echo site_url('dtr/exportPdf/') . $id; ?>') ">PDF</button>
                 <button type="button" class="btn btn-success text-white" id="excel_btn"
-                    onclick="window.open('<?php echo site_url('dtr/exportExcel/') . $id; ?>') ">Excel</button>
+                    onclick="window.open('<?php echo site_url('dtr/exportExcel/') . $id; ?>') " disabled>Excel</button>
 
                 <table class="table table-bordered table-hover mt-3">
                     <thead class="table-dark">
@@ -57,7 +57,7 @@
                                             alt="Time In Picture" width="100"></td>
                                     <td><?php echo Main::formatDateTime($dtrData["time_out"]); ?></td>
                                     <td><img src="<?php echo Main::formatEncodedBase64($dtrData["time-out_picture"]); ?>"
-                                    alt="Time Out Picture" width="100"></td>
+                                            alt="Time Out Picture" width="100"></td>
                                 </tr>
                                 <?php
                             endforeach;
@@ -97,8 +97,8 @@
             </div>
         </div>
 
-         <!-- Time Out Modal -->
-         <div class="modal fade" id="timeOutModal" tabindex="-1" aria-labelledby="timeOutLabel" aria-hidden="true">
+        <!-- Time Out Modal -->
+        <div class="modal fade" id="timeOutModal" tabindex="-1" aria-labelledby="timeOutLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -160,7 +160,7 @@
     <script>
         $(document).ready(function () {
             Webcam.set({
-                width: 720,
+                width: 1080,
                 height: 720,
                 image_format: 'jpeg',
                 jpeg_quality: 90,
@@ -297,6 +297,35 @@
                 })
             })
         });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var coordinates = {
+                    "latitude" : latitude,
+                    "longtitude" : longitude
+                }
+                console.log(coordinates);
+            }, function (error) {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("The request to get user location timed out.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log("An unknown error occurred.");
+                        break;
+                }
+            });
+        } else {
+            console.log("Geolocation is not supported.");
+        }
 
     </script>
 </body>

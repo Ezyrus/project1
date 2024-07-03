@@ -20,10 +20,7 @@
     </head>
 
     <body class="d-flex justify-content-center align-items-center">
-        <!-- form -->
         <div class="card w-50 mt-5 ">
-            <?php // echo form_open("adminPages/login"); ?>
-
             <form id="adminLogin">
                 <div class="card-header text-center bg-success text-white">
                     <h3>LOGIN ADMIN</h3>
@@ -50,10 +47,7 @@
                     </div>
                 </div>
             </form>
-
-            <?php // echo form_close(); ?>
         </div>
-
 
         <script>
             $("#adminLogin").on('submit', function (e) {

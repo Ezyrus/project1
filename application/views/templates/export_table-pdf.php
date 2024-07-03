@@ -1,4 +1,4 @@
-<?php 
+<?php
 require FCPATH . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf();
@@ -35,9 +35,9 @@ $html .= '</table>';
 
 $mpdf->WriteHTML($html);
 
-$mpdf->SetFooter('<div style="text-align: center;">Generated at ' .Main::getCurrentDateTime() . '</div>');
+$mpdf->SetFooter('<div style="text-align: center;">Generated at ' . Main::getCurrentDateTime() . '</div>');
 
-$fileName = $fullname . '_' .Main::getCurrentDateTime();
+$fileName = $fullname . '_' . Main::getCurrentDateTime();
 
 $mpdf->Output($fileName, \Mpdf\Output\Destination::INLINE);
 
