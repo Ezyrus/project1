@@ -15,12 +15,12 @@ class Dtr extends CI_Controller
     {
         $timeIn_selfiePicture = $this->input->post('timeIn_selfiePicture', FALSE);
         $admin_id = $this->input->post("admin_id");
+        $base64_timeInSelfiePicture = Main::formatDecodedBase64($timeIn_selfiePicture);
 
-        $modelResponse = $this->dtrModel->insert_time($admin_id, $timeIn_selfiePicture);
-
-        if (empty($timeIn_selfiePicture)) {
+        if (empty($base64_timeInSelfiePicture)) {
             echo json_encode(['status' => false, 'message' => "Selfie Picture is Required"]);
         } else {
+            $modelResponse = $this->dtrModel->insert_time($admin_id, $base64_timeInSelfiePicture);
             if ($modelResponse) {
                 echo json_encode(['status' => true, 'message' => "Time In Successful"]);
             } else {
@@ -31,13 +31,19 @@ class Dtr extends CI_Controller
 
     public function timeOut()
     {
+        $timeOut_selfiePicture = $this->input->post('timeOut_selfiePicture', FALSE);
         $admin_id = $this->input->post("admin_id");
+        $base64_timeOutSelfiePicture = Main::formatDecodedBase64($timeOut_selfiePicture);
 
-        $modelResponse = $this->dtrModel->update_time($admin_id);
-        if ($modelResponse) {
-            echo json_encode(['status' => true, 'message' => "Time Out Successful"]);
+        if (empty($base64_timeOutSelfiePicture)) {
+            echo json_encode(['status' => false, 'message' => "Selfie Picture is Required"]);
         } else {
-            echo json_encode(['status' => false, 'message' => "Time Out Failed"]);
+            $modelResponse = $this->dtrModel->update_time($admin_id, $base64_timeOutSelfiePicture);
+            if ($modelResponse) {
+                echo json_encode(['status' => true, 'message' => "Time Out Successful"]);
+            } else {
+                echo json_encode(['status' => false, 'message' => "Time Out Failed"]);
+            }
         }
     }
 

@@ -24,7 +24,8 @@
             <div class="card-body">
                 <button type="button" class="btn btn-success" id="timeIn_btn" data-bs-toggle="modal"
                     data-bs-target="#timeInModal">Time In</button>
-                <button type="button" class="btn btn-danger" id="timeOut_btn">Time Out</button>
+                <button type="button" class="btn btn-danger" id="timeOut_btn" data-bs-toggle="modal"
+                data-bs-target="#timeOutModal">Time Out</button>
                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                     data-bs-target="#dateFilterModal">Filter Date</button>
                 <button type="button" class="btn btn-primary text-white" id="pdf_btn"
@@ -52,9 +53,11 @@
                                     <td><?php echo $individualDtr["id"]; ?></td>
                                     <td><?php echo $individualDtr["admin_id"]; ?></td>
                                     <td><?php echo Main::formatDateTime($individualDtr["time_in"]); ?></td>
-                                    <td><?php echo $individualDtr["time-in_picture"]; ?></td>
+                                    <td><img src="<?php echo Main::formatEncodedBase64($individualDtr["time-in_picture"]); ?>"
+                                            alt="Time In Picture" width="100"></td>
                                     <td><?php echo Main::formatDateTime($individualDtr["time_out"]); ?></td>
-                                    <td><?php echo $individualDtr["time-out_picture"]; ?></td>
+                                    <td><img src="<?php echo Main::formatEncodedBase64($individualDtr["time-out_picture"]); ?>"
+                                    alt="Time Out Picture" width="100"></td>
                                 </tr>
                                 <?php
                             endforeach;
@@ -74,7 +77,8 @@
 
                     <form id="timeIn_form" method="POST">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="timeInLabel">Time In for <?php echo Main::getCurrentDate(); ?>
+                            <h5 class="modal-title" id="timeInLabel">Time In for
+                                <?php echo Main::getCurrentDate(); ?>
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -86,7 +90,34 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Time In</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+         <!-- Time Out Modal -->
+         <div class="modal fade" id="timeOutModal" tabindex="-1" aria-labelledby="timeOutLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <form id="timeOut_form" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="timeOutLabel">Time Out for
+                                <?php echo Main::getCurrentDate(); ?>
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-1">
+                                <div class="col text-center">
+                                    <div id="timeOut_selfiePicture" width="100%" height="auto"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -144,11 +175,11 @@
             $("#dateTo").attr("max", today);
 
             $('#timeInModal').on('shown.bs.modal', function () {
-                openCamera();
+                openTimeInCamera();
             });
 
             $('#timeOutModal').on('shown.bs.modal', function () {
-                openCamera();
+                openTimeOutCamera();
             });
         })
 
@@ -165,7 +196,7 @@
             $("#real_time").text(recentDateTime)
         }
 
-        function openCamera() {
+        function openTimeInCamera() {
             Webcam.reset();
             Webcam.attach('#timeIn_selfiePicture');
             $("#timeIn_selfiePicture").css("width", "100%");
@@ -174,97 +205,98 @@
             $("#timeIn_selfiePicture").css("height", "unset");
         }
 
+        function openTimeOutCamera() {
+            Webcam.reset();
+            Webcam.attach('#timeOut_selfiePicture');
+            $("#timeOut_selfiePicture").css("width", "100%");
+            $("video").css("width", "100%");
+            $("video").css("height", "unset");
+            $("#timeOut_selfiePicture").css("height", "unset");
+        }
+
         $("#timeIn_form").on("submit", function (e) {
             e.preventDefault();
             Webcam.snap(function (data_uri) {
-                console.log(data_uri);
-                console.log(b64toBlob(data_uri));
-                // var formData = new FormData();
-                // formData.append('timeIn_selfiePicture', b64toBlob(data_uri, "image/jpeg"));
-                // formData.append('admin_id', <?php echo $id; ?>);
-                // $.ajax({
-                //     url: "<?php echo site_url('dtr/timeIn'); ?>",
-                //     type: "POST",
-                //     data: formData,
-                //     dataType: 'json',
-                //     contentType: false,
-                //     processData: false,
-                //     success: function (responseData) {
-                //         if (responseData.status) {
-                //             swal({
-                //                 text: responseData.message,
-                //                 icon: "success",
-                //                 timer: 1000,
-                //                 button: false,
-                //             }).then(() => {
-                //                 location.reload();
-                //             });
-                //         } else {
-                //             swal({
-                //                 text: responseData.message,
-                //                 icon: "error",
-                //                 button: "Ok",
-                //             });
-                //         }
-                //     },
-                //     error: function (xhr, status, error) {
-                //         swal({
-                //             text: "Error occurred, please contact developers immediately: " + xhr.responseText + error,
-                //             icon: "error",
-                //             button: "Ok",
-                //         });
-                //     }
-                // })
+                var formData = new FormData();
+                formData.append('timeIn_selfiePicture', data_uri);
+                formData.append('admin_id', <?php echo $id; ?>);
+                $.ajax({
+                    url: "<?php echo site_url('dtr/timeIn'); ?>",
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (responseData) {
+                        if (responseData.status) {
+                            swal({
+                                text: responseData.message,
+                                icon: "success",
+                                timer: 1000,
+                                button: false,
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            swal({
+                                text: responseData.message,
+                                icon: "error",
+                                button: "Ok",
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        swal({
+                            text: "Error occurred, please contact developers immediately: " + xhr.responseText + error,
+                            icon: "error",
+                            button: "Ok",
+                        });
+                    }
+                })
             });
         });
 
-        function b64toBlob(b64Data, contentType) {
-            var binaryString = atob(b64Data);
-            var len = binaryString.length;
-            var bytes = new Uint8Array(len);
-            for (var i = 0; i < len; ++i) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            var blob = new Blob([bytes.buffer], { type: 'image/jpeg' });
-            return blob;
-        }
-
-
-        // $("#timeOut_btn").on("click", function () {
-        //     $.ajax({
-        //         url: "<?php echo site_url('dtr/timeOut'); ?>",
-        //         type: "POST",
-        //         data: {
-        //             admin_id: <?php echo $id; ?>
-        //         },
-        //         dataType: 'json',
-        //         success: function (responseData) {
-        //             if (responseData.status) {
-        //                 swal({
-        //                     text: responseData.message,
-        //                     icon: "success",
-        //                     timer: 1000,
-        //                     button: false,
-        //                 }).then(() => {
-        //                     location.reload();
-        //                 });
-        //             } else {
-        //                 swal({
-        //                     text: responseData.message,
-        //                     icon: "error",
-        //                     button: "Ok",
-        //                 });
-        //             }
-        //         },
-        //         error: function (xhr, status, error) {
-        //             swal({
-        //                 text: "Error occurred, please contact developers immediately.",
-        //                 icon: "error",
-        //                 button: "Ok",
-        //             });
-        //         }
-        //     })
-        // });
+        $("#timeOut_form").on("submit", function (e) {
+            e.preventDefault()
+            Webcam.snap(function (data_uri) {
+                var formData = new FormData();
+                formData.append('timeOut_selfiePicture', data_uri);
+                formData.append('admin_id', <?php echo $id; ?>);
+                $.ajax({
+                    url: "<?php echo site_url('dtr/timeOut'); ?>",
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (responseData) {
+                        if (responseData.status) {
+                            swal({
+                                text: responseData.message,
+                                icon: "success",
+                                timer: 1000,
+                                button: false,
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            swal({
+                                text: responseData.message,
+                                icon: "error",
+                                button: "Ok",
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        swal({
+                            text: "Error occurred, please contact developers immediately: ",
+                            icon: "error",
+                            button: "Ok",
+                        });
+                    }
+                })
+            })
+        });
 
     </script>
 </body>

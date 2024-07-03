@@ -42,11 +42,12 @@ class DtrModel extends CI_Model
 
     }
 
-    public function update_time($admin_id)
+    public function update_time($admin_id, $timeOut_selfiePicture)
     {
         $data = array(
             "admin_id" => $admin_id,
-            "time_out" => Main::getCurrentDateTime()
+            "time_out" => Main::getCurrentDateTime(),
+            "time-out_picture" => $timeOut_selfiePicture
         );
 
         $lastTimeIn = $this->getLast_timeIn($admin_id);
