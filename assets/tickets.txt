@@ -1,0 +1,224 @@
+1. Dashboard > Search Bar 
+- It allows JS scripts to be executed
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-639 
+
+2. HR Setup > Department > Manage Department > Update modal button
+ - Error update modal button
+ - After adding new 'code' containing double quotes, that specific department's update button will direct to add department modal and shows an error 
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-640
+
+3. DTR > Schedule List 
+ - Empty modal form data           
+ - After adding new 'code' or 'description' containing double quotes, that specific schedule's update form data will no longer display the code and description.
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-641
+
+4. HR > Employee 201 File > Select an Employee > Service Record > Create New Service Record 
+ - Under department input field there is an unwanted symbol "-->".
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-650
+
+5. HR Setup -> User Management > Account Type "Admin" 
+ - Empty update modal form
+ - After adding new "User Name", "First Name", "Middle Name", and "Last Name" containing double quotes, that specific admin's update form will no longer display the said fields.
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-651
+
+6. HR -> Employee 201 File - After adding new "Employee ID", "Suffix", "First Name", "Middle Name", and "Last Name" containing double quotes, that specific employee will become unclickable to see more details
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-652
+
+7. HR > Employee 201 File > Select an Employee > Personal Data 
+ - Empty display data for employee after updating its data with double quotes
+ - After updating the employee's "Suffix", "First Name", "Middle Name", and "Last Name" that contains double quotes it will disregard other texts and will not save anything, causing empty value for those fields or as it appears. 
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-653
+
+8.  HR > Employee 201 File > Select an Employee > Payroll 
+ - Input field title headers
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-654
+
+9. HR > Reports Item > Dependent Information 
+ - Empty Data in Level update modal form
+ - After updating a "Level" containing double quotes, that specific level will appear empty in update modal form.
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-655
+
+10. HR > Reports Item > Dependent Information 
+ - Empty Data in Level table row and error action's buttons 
+ - After adding new "Level" containing a PHP script, that specific level's data will appear empty and error action's buttons.
+- https://jira.pinnacle.edu.ph/browse/TMSHYP-656
+
+11. HR > Reports Item > Official Business
+ - Empty Data in Official Business update modal form
+ - After adding new "business type" containing double quotes, that specific business type will appear empty in update modal form.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-657
+
+12. HR > Reports Item > Official Business
+ - Empty "URL Link" column data
+ - After adding new Official Business type, the business type's URL Link column appears to be empty.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-658
+
+13. HR > Employee 201 File > Select an Employee > Trainings/Seminars/Workshops > Researches Undertaken
+ - Empty "Type of Research Work" column data
+ - After adding new Research Undertaken, the table row's Type of Research Work columns appears to be empty.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-659
+
+14. HR > Employee 201 File > Select an Employee > Deductions > Employee Deductions > Add Deduction 
+ - Wrong input field type
+ - Input field "Amount" or "No. of Cut-off" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-660
+
+15. HR > Employee 201 File > Select an Employee > Income > Employee Income > Add Income
+ - Wrong input field type
+ - Input field "Amount" or "No. of Cut-off" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-661
+
+16. HR > Employee 201 File > Select an Employee > Personal Data > Service Record > Create New Service Record 
+ - Error action's buttons 
+ - After adding new Service Record containing a PHP script, that specific row's data in action column an error occurs.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-662
+
+17. HR > Employee Clearance > Select an Employee > Add Clearance > Clearance 
+ - Empty display name
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-664
+
+18. HR > Employee 201 File > Personal Record 
+ - Wrong input field type
+ - Input field "Mobile Number" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-665
+
+19. HR Setup > User Type > Manage User Type 
+ - Empty update modal form
+ - After adding new "Code" or "Description" containing double quotes, that specific user's update form will no longer display the said fields.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-666
+
+20. HR Setup > Department > Manage Department > Delete button
+ - Unable to perform delete operation
+ - After adding new 'code' containing double quotes, that specific department's delete button will no longer function properly
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-670
+
+21. HR Setup > Office/Unit > Manage Office > Update modal button
+ - Error update modal button
+ - After adding new 'Code' or 'Office/Unit' containing double quotes, that specific office's update button will direct to add office modal and the said fields appears empty.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-671
+
+22. HR Setup > Office/Unit > Manage Office > Delete button
+ - Unable to perform delete operation
+ - After adding new 'Code' or 'Office/Unit' containing double quotes, that specific office's delete button will no longer function properly
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-672
+
+23. HR Setup > Position > Manage Position
+ - Empty update modal form
+ - After adding new "Job Title" containing double quotes, that specific position's update form will no longer display the job title field.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-673
+
+24. HR Setup > Position > Manage Position > Add New Position > Hiring  
+ - Wrong input field type
+ - Input field "Salary Range" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-674
+
+25. HR Setup > Position > Manage Position > Update Position > Hiring  
+ - Wrong input field type
+ - Input field "Salary Range" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-675
+
+26. HR > Employee 201 File > Select an Employee > Deductions > Employee Deductions > Update Employee's Deduction 
+ - Wrong input field type
+ - Input field "Amount" and "No. of Cut-off" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-676
+
+27. HR > Employee 201 File > Select an Employee > Income > Employee Income > Update Employee's Income
+ - Wrong input field type
+ - Input field "Amount" and "No. of Cut-off" accepts strings and integer instead of Integer only
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-677
+
+28. HR Setup > Employment Status > Manage Employment Status
+ - Empty update modal form
+ - After adding new "Code" or "Description" containing double quotes, that specific employment status update form will no longer display the said fields.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-678
+
+29. HR Setup > Applicant Status
+ - Empty update modal form
+ - After adding new "Description" containing double quotes, that specific applicant status update form will no longer display the said field.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-679
+
+30. HR Setup > Disciplinary Action Setup > Manage Type of Offenses
+ - Empty update modal form
+ - After adding new "Description" containing double quotes, that specific type of offense update form will no longer display the said field.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-680
+
+31. HR Setup > Disciplinary Action Setup > Manage Disciplinary Sanction
+ - Empty update modal form
+ - After adding new "Description" containing double quotes, that specific sanction's update form will no longer display the said field.
+ - https://jira.pinnacle.edu.ph/browse/TMSHYP-681
+
+32. HR Setup > Applicant Requirements > Initial Requirements
+ - Empty update modal form
+ - After adding new "Description" containing double quotes, that specific requirement's update form will no longer display the said field.
+ - 
+
+33. HR Setup > Applicant Requirements > Pre Employment Requirements
+ - Empty update modal form
+ - After adding new "Description" containing double quotes, that specific sanction's update form will no longer display the said field.
+ - 
+
+34. HR Setup > Clearance > Manage Clearance
+ - Empty update modal form
+ - After adding new "Code" or "Description" containing double quotes, that specific sanction's update form will no longer display the said field.
+ - 
+
+35. 
+
+Site URL: http://192.168.2.32/tmshris
+Server: Dev
+Credentials: 
+ Username: jinky.pedrosa
+ Password: a
+Test Data:
+ - N/A
+Issues/Concerns:
+Screenshots/Error Logs: 
+
+Note:
+1. Adding and Updating row containing single quotes on their field does not do the function properly. 
+ - It display a success but does not actually did the job properly.
+ - HR > Reports Item > Dependent Information > Stage
+ - HR > Reports Item > Dependent Information > Level
+ - HR > Reports Item > Separation
+ - HR > Reports Item > Clearance
+ - HR > Reports Item > Training and Seminars Category
+ - HR > Reports Item > Subject Competent to Teach
+ - HR > Reports Item > Employment History
+ - HR > Reports Item > Skills
+ - HR > Reports Item > Publication
+ - HR > Reports Item > Official Business
+ - HR > Reports Item > Language > Literacy
+ - HR > Reports Item > Group Affiliations
+ - HR > Reports Item > Emergency Contact Type
+ - HR > Reports Item > Eligibility
+ - HR > Reports Item > Educational Background
+ - HR > Reports Item > Educational Background > Degree Earned
+ - HR > Reports Item > Educational Background > Awards and Recognition
+ - HR > Employee 201 File > Select Employee > Personal Data > Dependents Information > Add Family Member
+ - DTR > Schedule list
+ - HR Setup > Position > Manage Position
+ - HR Setup > Disciplinary Action Setup > Manage Disciplinary Action
+
+
+2. Adding and Updating row containing PHP script on their field does not do the function properly
+ - HR > Reports Item > Dependent Information > Level
+ - HR > Reports Item > Subject Competent to Teach
+ - HR > Reports Item > Employment History
+ - HR > Reports Item > Skills
+ - HR > Reports Item > Publication
+ - HR > Reports Item > Language > Literacy
+ - HR > Reports Item > Group Affiliations
+ - HR > Reports Item > Emergency Contact Type
+ - HR > Reports Item > Eligibility
+ - HR > Reports Item > Educational Background
+ - HR > Reports Item > Educational Background > Degree Earned
+ - HR > Reports Item > Educational Background > Awards and Recognition
+ - HR Setup > Office/Unit > Manage Office
+3. The following module got the ideal form actions to prevent XSS and maybe SQL Injections. 
+ - HR > Reports Item > Dependent Information > "Stage" Table
+ - HR > Employee 201 File > Dependent Information
+ - DTR > Schedule list
+ - HR Setup > Blood Type
+
+4. HR > Employee 201 File > Select Employee > Personal Data > Dependents Information, Emergency Contact Information > Vaccination Record - When updating data it only selects the recent row instead of actually updating the selected row.
+
