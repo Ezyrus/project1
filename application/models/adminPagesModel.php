@@ -58,6 +58,8 @@ class AdminPagesModel extends CI_Model
     }
 
     public function deleteAdmin($id){
+        $this->db->where("id", $id);
+        return $this->db->delete("admin");
     }
 }
 
